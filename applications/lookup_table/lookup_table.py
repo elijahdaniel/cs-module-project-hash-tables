@@ -1,5 +1,8 @@
 # Your code here
+import math
+import random
 
+lookup_table = {}
 
 def slowfun_too_slow(x, y):
     v = math.pow(x, y)
@@ -15,7 +18,8 @@ def slowfun(x, y):
     output, but completes quickly instead of taking ages to run.
     """
     # Your code here
-
+    for i in lookup_table:
+        lookup_table[i] = slowfun_too_slow(x, y)
 
 
 # Do not modify below this line!
