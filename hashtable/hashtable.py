@@ -6,7 +6,7 @@ class HashTableEntry:
         self.key = key
         self.value = value
         self.next = None
-        self.head = None
+        # self.head = None
 
 
 # Hash table can't have fewer than this many slots
@@ -24,6 +24,7 @@ class HashTable:
         # Your code here
         self.capacity = capacity
         self.storage = [None] * capacity
+        # number of items
         self.keys = 0
 
 
@@ -36,6 +37,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        # number of slots in the main list
         return self.capacity
 
 
@@ -45,7 +47,8 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        return self.keys/self.capacity
+        # number of things / length of array (Hash Table Load Factor)
+        return self.keys / self.capacity
 
 
     def fnv1(self, key):
@@ -63,7 +66,9 @@ class HashTable:
         """
         # Your code here
         hash = 5381
+        # every character in the key
         for byte in key:
+            # hash characters, 5 zeros added
             hash = ((hash << 5) + hash) + ord(byte)
         return hash
 
@@ -89,9 +94,12 @@ class HashTable:
         
 
         if node is not None:
+            # hash key, go to location and insert values
             self.storage[index] = hashtable
+            # set next node to current storage[index]
             self.storage[index].next = node
         else:
+            # hash key + increment keys by 1
             self.storage[index] = hashtable
             self.keys += 1
 
@@ -109,12 +117,12 @@ class HashTable:
         
         if node.key == key:
             self.storage[index] = node.next
-            return
-        while node !=None:
+            return None
+        while node != None:
             if node.key == key:
                 prev.next = node.next
                 self.storage[index].next = None
-                return
+                return None
             prev = node
             node = node.next
         
@@ -130,6 +138,7 @@ class HashTable:
         # Your code here
         index = self.hash_index(key)
         node = self.storage[index]
+
         while node is not None:
             if node.key == key:
                 return node.value
@@ -153,7 +162,7 @@ class HashTable:
         #create storage with new set capacity
         self.storage = [None] * new_capacity
 
-        #need to loop through data and add to new storage
+        # loop through data and add to new storage
         for keys in old:
             if keys:
                 current = keys
